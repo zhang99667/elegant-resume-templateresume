@@ -26,12 +26,12 @@
 ]{texgyretermes}
 
 \RequirePackage[
-	a4paper,
-	left=0.7in,
-	right=0.7in,
-	top=0.50in,
-	bottom=0.5in,
-	nohead
+    a4paper,
+    left=0.7in,
+    right=0.7in,
+    top=0.50in,
+    bottom=0.5in,
+    nohead
 ]{geometry}
 
 \RequirePackage{titlesec}
@@ -86,4 +86,29 @@
 \newcommand{\role}[2]{
   {\par \textit{#1} ~ #2 \par}
   \vspace{0.5ex}
+}
+
+% 添加 tcolorbox 支持
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+
+% 定义 \mcode 宏 - 仿 Markdown 样式名词高亮
+\newtcbox{\mcode}[1][]{
+  on line,              % 行内模式（不换行）
+  boxsep=1pt,           % 内容与边框的内边距
+  top=1pt,              % 上侧额外间距
+  bottom=0.5pt,         % 下侧额外间距
+  left=3pt,             % 左侧内边距
+  right=3pt,            % 右侧内边距
+  colback=gray!5,       % 背景色
+  colframe=blue!30!black!20,  % 边框色
+  arc=3pt,              % 圆角
+  boxrule=0.5pt,        % 边框线粗细
+  #1                    % 允许额外参数
+}
+
+% 定义 \techlist 宏 - 用于显示技术列表
+\RequirePackage{pgffor} % 提供 foreach 功能
+\newcommand{\techlist}[1]{
+  \foreach \x in {#1} {\mcode{\x}\,}
 }

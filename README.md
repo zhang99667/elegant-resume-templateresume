@@ -61,6 +61,8 @@ make clean    # 清除所有中间文件和 pdf
 - `\datedsubsection`: 用于小节标题, 简历中使用最广，第二项为时间区间，自动右对齐
 - `\itemize`: 清单列表，简历中应用最广
 - `\enumerate`: 枚举列表，数字标号
+- `\mcode`: 高亮信息，效果：`highlight`
+- `\techlist`: 高亮列表，使用方式：`\techlist{a,b}`，效果：`a`, `b`
 
 ### FontAwesome
 
