@@ -63,6 +63,7 @@ make clean    # 清除所有中间文件和 pdf
 - `\enumerate`: 枚举列表，数字标号
 - `\mcode`: 高亮信息，效果：`highlight`
 - `\techlist`: 高亮列表，使用方式：`\techlist{a,b}`，效果：`a`, `b`
+- `\photo`: 照片，使用方法：`\photo[width=40mm,scale=0.8]{example.jpg}`或默认设置`\photo{example.jpg}`
 
 ### FontAwesome
 

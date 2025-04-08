@@ -88,27 +88,55 @@
   \vspace{0.5ex}
 }
 
-% 添加 tcolorbox 支持
+% ==================== 仿Markdown行内代码高亮样式 ====================
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins}
 
-% 定义 \mcode 宏 - 仿 Markdown 样式名词高亮
+% 定义\mcode宏
+% 参数格式：
+%   [可选] #1 - tcolorbox样式覆盖参数（如修改颜色、边距等）
+%   {必选}   - 需要高亮显示的技术名词文本
 \newtcbox{\mcode}[1][]{
-  on line,              % 行内模式（不换行）
-  boxsep=1pt,           % 内容与边框的内边距
-  top=1pt,              % 上侧额外间距
-  bottom=0.5pt,         % 下侧额外间距
-  left=3pt,             % 左侧内边距
+  on line,              % 行内模式（防止自动换行）
+  boxsep=1pt,           % 文字与边框的内边距（左右对称）
+  top=1pt,              % 顶部补偿间距（解决垂直对齐问题）
+  bottom=0.5pt,         % 底部补偿间距
+  left=3pt,             % 左侧内边距（控制文字缩进）
   right=3pt,            % 右侧内边距
-  colback=gray!5,       % 背景色
-  colframe=blue!30!black!20,  % 边框色
-  arc=3pt,              % 圆角
-  boxrule=0.5pt,        % 边框线粗细
-  #1                    % 允许额外参数
+  colback=gray!5,       % 背景色（5%灰度浅灰）
+  colframe=blue!30!black!20,  % 边框色（30%蓝+20%黑的混合色）
+  arc=3pt,              % 圆角半径（视觉柔和效果）
+  boxrule=0.5pt,        % 边框线粗细（0.5磅细线）
+  #1                    % 开放参数覆盖接口
 }
 
-% 定义 \techlist 宏 - 用于显示技术列表
-\RequirePackage{pgffor} % 提供 foreach 功能
+% 定义\techlist宏 - 自动生成技术名词列表
+% 参数格式：
+%   {必选} #1 - 逗号分隔的技术名词字符串（如"Java,Python"）
+\RequirePackage{pgffor}
 \newcommand{\techlist}[1]{
   \foreach \x in {#1} {\mcode{\x}\,}
 }
+% ==================== 仿Markdown行内代码高亮样式结束 ====================
+
+% ==================== 照片宏定义 ====================
+% 定义 \photo 宏 - 右上角固定位置显示照片
+% 参数:
+%   {必选} 照片文件路径
+%   [可选] 键值参数:
+%     width=30mm    - 显示宽度（默认30mm）
+%     scale=0.7     - 缩放比例（默认0.7）
+\RequirePackage{keyval}
+\RequirePackage[absolute]{textpos}
+\RequirePackage{graphicx}
+\makeatletter
+\define@key{photo}{width}{\def\photo@width{#1}}
+\define@key{photo}{scale}{\def\photo@scale{#1}}
+\newcommand{\photo}[2][]{%
+  \setkeys{photo}{width=30mm,scale=0.7,#1}% 设置默认值
+  \begin{textblock*}{\photo@width}(170mm,6mm) % 定位右上角
+    \includegraphics[width=\photo@width,height=\photo@width,keepaspectratio]{#2}%
+  \end{textblock*}%
+}
+\makeatother
+% ==================== 照片宏定义结束 ====================
